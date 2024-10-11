@@ -2,7 +2,7 @@
 // File chứa các biến muôi trường trong hệ thống
 // Khai báo các biến dưới dạng HẰNG SỐ để ko phải sử dụng $GLOBALS
 
-define('BASE_URL', 'http://localhost/ASM2/bai1/');
+define('BASE_URL', 'http://localhost/ASM2/bai3/');
 
 define('DB_HOST', 'localhost');
 define('DB_PORT', 3306);

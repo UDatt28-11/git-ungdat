@@ -1,45 +1,45 @@
 <?php
-class ChucVuController
+class DanhMucController
 {
     public $modelChucVu;
 
     public function __construct()
     {
-        $this->modelChucVu=new chucVu();
+        $this->modelChucVu=new DanhMuc();
     }
     public function index()
     {
         // Lấy ra dữ liệu từ CSDL
-        $listChucVu = $this->modelChucVu->chucvuAll();
+        $listDanhMuc = $this->modelChucVu->chucvuAll();
         // var_dump($lisChucVu);
 
         // Muốn đổ dữ liệu ra view thì sẽ require file view đó vào đây
-        require_once './views/list.php';
+        require_once './view/list.php';
     }
 
     public function add()
     {
-        require_once './views/add.php'; // Giao diện form add
+        require_once './view/add.php'; // Giao diện form add
     }
     public function themnhanvien()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Lấy ra tất cả các dữ liệu
-            $ten_chuc_vu     = $_POST['ten_chuc_vu'];
+            $ten_danh_muc     = $_POST['ten_danh_muc'];
            
 
             // Kiểm tra dữ liệu
             $error = [];
 
             // Kiểm tra trường name
-            if (empty($ten_chuc_vu)) { // empty là hàm check trống. Nếu không có dữ liệu sẽ trả về TRUE
-                $error['ten_chuc_vu'] = "Nhập đầy đủ họ tên";
+            if (empty($ten_danh_muc)) { // empty là hàm check trống. Nếu không có dữ liệu sẽ trả về TRUE
+                $error['ten_danh_muc'] = "Nhập đầy đủ họ tên";
             }
 
             if (empty($error)) {
                 // Nếu ko có lỗi thì tiến hành thêm dữ liệu
                 unset($_SESSION['error']); // Xóa các lỗi lưu trên session
-                $this->modelChucVu->postData($ten_chuc_vu);
+                $this->modelChucVu->postData($ten_danh_muc);
                 header("Location: ?act=list");
                 exit();
             } else {
@@ -52,25 +52,25 @@ class ChucVuController
 
     public function update($id){;
         $update=$this->modelChucVu->laydulieu($id);
-        require_once './views/update.php'; 
+        require_once './view/update.php'; 
     }
 
     public function updateNhanVien()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
             $id = intval($_POST['id']);
-            $ten_chuc_vu = trim($_POST['ten_chuc_vu']);
+            $ten_danh_muc = trim($_POST['ten_danh_muc']);
             $error = [];
     
             // Validate job title
-            if (empty($ten_chuc_vu)) {
-                $error['ten_chuc_vu'] = "Nhập đầy đủ chức vụ";
+            if (empty($ten_danh_muc)) {
+                $error['ten_danh_muc'] = "Nhập đầy đủ chức vụ";
             }
     
             // If no errors, proceed with update
             if (empty($error)) {
                 unset($_SESSION['error']); // Clear error session
-                $this->modelChucVu->updatechucvu($id, $ten_chuc_vu);
+                $this->modelChucVu->updatechucvu($id, $ten_danh_muc);
                 header("Location: ?act=list");
                 exit();
             } else {
