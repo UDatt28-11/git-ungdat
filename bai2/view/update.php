@@ -31,7 +31,7 @@
         </span> <br> <br>
 
         Ngày sinh: <br>
-        <input type="date" name="ngay_sinh" placeholder="Nhập ngày sinh" value="<?=$update['ngay_sinh']?>"> <br>
+        <input type="text" name="ngay_sinh" placeholder="Nhập ngày sinh" value="<?=$update['ngay_sinh']?>"> <br>
         <span style="color:red;">
             <?= !empty($_SESSION['error']['ngay_sinh']) ? $_SESSION['error']['ngay_sinh'] : '' ?>
         </span> <br> <br>
@@ -54,8 +54,11 @@
             <option value="0" <?= $update['gioi_tinh'] == 0 ? 'selected' : '' ?>>Nữ</option>
             <option value="1" <?= $update['gioi_tinh'] == 1 ? 'selected' : '' ?>>Nam</option>
         </select> <br> <br>
-
+        <br>
+        <br>
+        <br>
         Mật khẩu: <br>
+
         <input type="password" name="mat_khau" placeholder="Nhập password" value="<?=$update['mat_khau']?>"> <br>
         <span style="color:red;">
             <?= !empty($_SESSION['error']['mat_khau']) ? $_SESSION['error']['mat_khau'] : '' ?>
@@ -64,9 +67,9 @@
 
 
         Chức vụ ID: <br>
-        <input type="text" name="chuc_vu_id" placeholder="Nhập chức vụ ID" value="<?=$update['chuc_vu_id']?>"> <br>
+        <input type="text" name="chuc_vu" placeholder="Nhập chức vụ ID" value="<?=$update['chuc_vu']?>"> <br>
         <span style="color:red;">
-            <?= !empty($_SESSION['error']['chuc_vu_id']) ? $_SESSION['error']['chuc_vu_id'] : '' ?>
+            <?= !empty($_SESSION['error']['chuc_vu']) ? $_SESSION['error']['chuc_vu'] : '' ?>
         </span> <br> <br>
 
         Trạng thái: <br>

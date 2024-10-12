@@ -17,10 +17,10 @@ class ND{
             echo $e->getMessage();
         }
     }
-    public function themUSE($img,$ho_ten,$email,$ngay_sinh,$so_dien_thoai,$dia_chi,$gioi_tinh,$mat_khau,$chuc_vu_id,$trang_thai){
+    public function themUSE($img,$ho_ten,$email,$ngay_sinh,$so_dien_thoai,$dia_chi,$gioi_tinh,$mat_khau,$chuc_vu,$trang_thai){
         try{
-         $sql="INSERT INTO nguoi_dungs (anh_dai_dien,ho_ten,email,ngay_sinh,so_dien_thoai,dia_chi,gioi_tinh,mat_khau,chuc_vu_id,trang_thai)
-         VALUES (:anh_dai_dien,:ho_ten,:email,:ngay_sinh,:so_dien_thoai,:dia_chi,:gioi_tinh,:mat_khau,:chuc_vu_id,:trang_thai)";
+         $sql="INSERT INTO nguoi_dungs (anh_dai_dien,ho_ten,email,ngay_sinh,so_dien_thoai,dia_chi,gioi_tinh,mat_khau,chuc_vu,trang_thai)
+         VALUES (:anh_dai_dien,:ho_ten,:email,:ngay_sinh,:so_dien_thoai,:dia_chi,:gioi_tinh,:mat_khau,:chuc_vu,:trang_thai)";
          
          $stmt=$this->conn->prepare($sql);
          // var_dump($stmt);die();
@@ -32,12 +32,14 @@ class ND{
          $stmt->bindParam(':dia_chi',$dia_chi);
          $stmt->bindParam(':gioi_tinh',$gioi_tinh);
          $stmt->bindParam(':mat_khau',$mat_khau);
-         $stmt->bindParam(':chuc_vu_id',$chuc_vu_id);
+         $stmt->bindParam(':chuc_vu',$chuc_vu);
          $stmt->bindParam(':trang_thai',$trang_thai);
          $stmt->execute();
          return true;
         }catch (PDOException $e) {
          echo $e->getMessage();
+         var_dump($e);
+         die;
       }    
     }
     public function layThongTin($id){
@@ -53,7 +55,7 @@ class ND{
         }
     }
 
-    public function updateNGDUng($id, $img, $ho_ten, $email, $ngay_sinh ,$so_dien_thoai, $dia_chi, $gioi_tinh, $mat_khau, $chuc_vu_id, $trang_thai){
+    public function updateNGDUng($id, $img, $ho_ten, $email, $ngay_sinh ,$so_dien_thoai, $dia_chi, $gioi_tinh, $mat_khau, $chuc_vu, $trang_thai){
         try{
             $sql = "UPDATE nguoi_dungs 
             SET anh_dai_dien=:anh_dai_dien, 
@@ -64,7 +66,7 @@ class ND{
                 dia_chi=:dia_chi, 
                 gioi_tinh=:gioi_tinh, 
                 mat_khau=:mat_khau, 
-                chuc_vu_id=:chuc_vu_id, 
+                chuc_vu=:chuc_vu, 
                 trang_thai=:trang_thai 
             WHERE id=:id";
          
@@ -79,7 +81,7 @@ class ND{
         $stmt->bindParam(':dia_chi', $dia_chi);
         $stmt->bindParam(':gioi_tinh', $gioi_tinh);
         $stmt->bindParam(':mat_khau', $mat_khau);
-        $stmt->bindParam(':chuc_vu_id', $chuc_vu_id);
+        $stmt->bindParam(':chu$chuc_vu', $chuc_vu);
         $stmt->bindParam(':trang_thai', $trang_thai);
         
          $stmt->execute();

@@ -39,7 +39,7 @@
                 <td><?=$list['dia_chi']?></td>
                 <td><?=$list['gioi_tinh'] == 1 ? "Nam" : "Nữ"?></td>
                 <td><?=$list['mat_khau']?></td>
-                <td><?=$list['chuc_vu_id']?></td>
+                <td><?=$list['chuc_vu']?></td>
                 <td><?=$list['trang_thai']?></td>
                 <td>
                     <a href="?act=edit&id=<?= $list['id'] ?>">

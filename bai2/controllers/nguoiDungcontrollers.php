@@ -14,7 +14,16 @@ class NDcontroller{
     }
     public function themNgDung(){
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $img = $_FILES['anh_dai_dien'];
+            
+            if ($_FILES['anh_dai_dien']) { //kiểm tra có file upload lên không?
+                $file = $_FILES['anh_dai_dien'];
+                $img = $file['name'];
+                $from = $file['tmp_name']; //đường dẫn tạm thời
+                $to = './uploads/'.$img;
+                move_uploaded_file($from, $to);
+            } else {
+                $img = null;
+            }
             $ho_ten = $_POST['ho_ten'];
             $email = $_POST['email'];
             $ngay_sinh = $_POST['ngay_sinh'];
@@ -22,7 +31,7 @@ class NDcontroller{
             $dia_chi = $_POST['dia_chi'];
             $gioi_tinh = $_POST['gioi_tinh'];
             $mat_khau = $_POST['mat_khau'];
-            $chuc_vu_id = $_POST['chuc_vu_id'];
+            $chuc_vu = $_POST['chuc_vu'];
             $trang_thai = $_POST['trang_thai'];
 
             $error = [];
@@ -67,18 +76,18 @@ class NDcontroller{
                 $error['mat_khau'] = "Mật khẩu phải có ít nhất 8 ký tự";
             }
 
-            if (empty($chuc_vu_id)) {
-                $error['chuc_vu_id'] = "Chức vụ không được bỏ trống";
+            if (empty($chuc_vu)) {
+                $error['chuc_vu'] = "Chức vụ không được bỏ trống";
             }
 
             if (empty($trang_thai)) {
                 $error['trang_thai'] = "Trạng thái không được bỏ trống";
             }
-
+        
             if (empty($error)) {
                 unset($_SESSION['error']);
                 $this->modelnguoiDung->themUSE(
-                    $img, 
+                        $img,
                     $ho_ten, 
                     $email, 
                     $ngay_sinh, 
@@ -86,7 +95,7 @@ class NDcontroller{
                     $dia_chi, 
                     $gioi_tinh, 
                     $mat_khau, 
-                    $chuc_vu_id, 
+                    $chuc_vu, 
                     $trang_thai
                 );
                 header("Location: ?act=danh-sach-ng-dung");
@@ -101,12 +110,13 @@ class NDcontroller{
     public function edit($id){
         $update=$this->modelnguoiDung->layThongTin($id);
         // var_dump($update);die();
-        require_once './views/update.php';
+        require_once './view/update.php';
     }
     public function update(){
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
             $id=$_POST['id'];
-            // $img = $_FILES['anh_dai_dien'];
+            $img = $_FILES['anh_dai_dien'];
             $ho_ten = $_POST['ho_ten'];
             $email = $_POST['email'];
             $ngay_sinh = $_POST['ngay_sinh'];
@@ -114,7 +124,7 @@ class NDcontroller{
             $dia_chi = $_POST['dia_chi'];
             $gioi_tinh = $_POST['gioi_tinh'];
             $mat_khau = $_POST['mat_khau'];
-            $chuc_vu_id = $_POST['chuc_vu_id'];
+            $chuc_vu = $_POST['chuc_vu'];
             $trang_thai = $_POST['trang_thai'];
           
 
@@ -160,28 +170,21 @@ class NDcontroller{
                 $error['mat_khau'] = "Mật khẩu phải có ít nhất 8 ký tự";
             }
 
-            if (empty($chuc_vu_id)) {
-                $error['chuc_vu_id'] = "Chức vụ không được bỏ trống";
+            if (empty($chuc_vu)) {
+                $error['chuc_vu'] = "Chức vụ không được bỏ trống";
             }
 
             if (empty($trang_thai)) {
                 $error['trang_thai'] = "Trạng thái không được bỏ trống";
             }
 
-            if(isset($_FILES['anh_dai_dien']) && $_FILES['anh_dai_dien']['error']==UPLOAD_ERR_OK){
-                if(!empty($_POST['old_img'])){
-                    deleteFile($_POST['old_img']);
-                }
-                $img_update = uploadFile($_FILES['anh_dai_dien'], './uploads/');
-            }else{
-                $img_update=$_POST['old_img'];
-            }
+
 
             if (empty($error)) {
                 unset($_SESSION['error']);
                 $this->modelnguoiDung->updateNGDUng(
                     $id,
-                    $img_update,
+                        $img,
                     $ho_ten, 
                     $email, 
                     $ngay_sinh, 
@@ -189,7 +192,7 @@ class NDcontroller{
                     $dia_chi, 
                     $gioi_tinh, 
                     $mat_khau, 
-                    $chuc_vu_id, 
+                    $chuc_vu, 
                     $trang_thai
                 );
                 header("Location: ?act=danh-sach-ng-dung");

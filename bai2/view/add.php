@@ -57,9 +57,9 @@
 
 
         chức vụ ID : <br>
-        <input type="text" name="chuc_vu_id" placeholder="nhập tên chức vụ"> <br>
+        <input type="text" name="chuc_vu" placeholder="nhập tên chức vụ"> <br>
         <span>
-            <?= !empty($_SESSION['error']['chuc_vu_id']) ? $_SESSION['error']['chuc_vu_id'] : '' ?>
+            <?= !empty($_SESSION['error']['chuc_vu']) ? $_SESSION['error']['chuc_vu'] : '' ?>
         </span> <br> <br>
 
         trạng thái: <br>

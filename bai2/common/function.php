@@ -27,24 +27,5 @@ function connectDB()
     } catch (PDOException $e) {
         echo "Lỗi kết nối CSDL: " . $e->getMessage();
     }
-    function UploadFile($file, $folderUpload){
-    
-        $pathStorage = $folderUpload . time() . $file['name'];
-    
-        $from = $file['tmp_name'];
-        $to = PATH_ROOT . $pathStorage; 
-    
-        if(move_uploaded_file($from, $to)){
-            return $pathStorage;
-        }
-        return null;
-    }
-    
-    function deleteFile($pathStorage){
-        $path = PATH_ROOT .$pathStorage;
-        if(file_exists($path)){
-            unlink($path);
-        }
-    }
     
 }
